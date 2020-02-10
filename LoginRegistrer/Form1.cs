@@ -1,12 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LoginRegistrer
@@ -17,17 +12,9 @@ namespace LoginRegistrer
         public LoginForm()
         {
             InitializeComponent();
-
-            //this.textPassword.Size = new Size(this.textPassword.Size.Width, 50);
-
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonLogin_Click(object sender, EventArgs e)
+        private void ButtonLogin_Click(object sender, EventArgs e)
         {
 
             DB db = new DB();
@@ -48,7 +35,7 @@ namespace LoginRegistrer
 
             adapter.Fill(table);
 
-            if(table.Rows.Count > 0)
+            if (table.Rows.Count > 0)
             {
                 MessageBox.Show("YES");
             }
@@ -61,27 +48,76 @@ namespace LoginRegistrer
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
+            this.ActiveControl = label1;
+        }
+
+        private void TextUsername_TextChanged(object sender, EventArgs e)
+        {
 
         }
 
-        private void textUsername_TextChanged(object sender, EventArgs e)
+        private void ButtonClose_MouseHover(object sender, EventArgs e)
         {
-            
+            buttonClose.ForeColor = Color.Red;
         }
 
-        private void label4_MouseHover(object sender, EventArgs e)
+        private void ButtonClose_MouseLeave(object sender, EventArgs e)
         {
-            label4.ForeColor = Color.Red;
+            buttonClose.ForeColor = Color.Orange;
         }
 
-        private void label4_Click(object sender, EventArgs e)
+        private void TextUsername_Enter(object sender, EventArgs e)
         {
-            this.Close();
+            string username = textUsername.Text;
+            if (username.Equals("Enter Username"))
+            {
+                textUsername.Text = "";
+                textUsername.ForeColor = Color.Black;
+            }
         }
 
-        private void label4_MouseLeave(object sender, EventArgs e)
+        private void TextUsername_Leave(object sender, EventArgs e)
         {
-            label4.ForeColor = Color.Orange;
+            string username = textUsername.Text;
+            if (username.ToLower().Trim().Equals(""))
+            {
+                textUsername.Text = "Enter Username";
+                textUsername.ForeColor = Color.Gray;
+            }
+        }
+
+        private void TextPassword_Enter(object sender, EventArgs e)
+        {
+            string password = textPassword.Text;
+            if (password.Equals("Password"))
+            {
+                textPassword.Text = "";
+                textPassword.UseSystemPasswordChar = true;
+                textPassword.ForeColor = Color.Black;
+            }
+        }
+
+        private void TextPassword_Leave(object sender, EventArgs e)
+        {
+            string password = textPassword.Text;
+            if (password.ToLower().Trim().Equals(""))
+            {
+                textPassword.Text = "Password";
+                textPassword.UseSystemPasswordChar = false;
+                textPassword.ForeColor = Color.Gray;
+            }
+        }
+
+        private void ButtonClose_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void ButtonRegister_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            RegisterForm registerForm = new RegisterForm();
+            registerForm.Show();
         }
     }
 }

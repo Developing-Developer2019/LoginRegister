@@ -9,7 +9,7 @@ namespace LoginRegistrer
 {
     class DB
     {
-        private MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;username=root;password=;database=loginregister_users_db");
+        private readonly MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;username=root;password=;database=loginregister_users_db");
 
         public void OpenConnection()
         {

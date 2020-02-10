@@ -40,7 +40,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textPasswordConfirm = new System.Windows.Forms.TextBox();
             this.textLastName = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.buttonClose = new System.Windows.Forms.Label();
+            this.buttonBack = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label3
@@ -101,9 +102,9 @@
             this.textForename.Size = new System.Drawing.Size(201, 30);
             this.textForename.TabIndex = 200;
             this.textForename.Text = "Forename";
-            this.textForename.TextChanged += new System.EventHandler(this.textForename_TextChanged);
+            this.textForename.TextChanged += new System.EventHandler(this.TextForename_TextChanged);
             this.textForename.Enter += new System.EventHandler(this.TextForename_Enter);
-            this.textForename.Leave += new System.EventHandler(this.textForename_Leave);
+            this.textForename.Leave += new System.EventHandler(this.TextForename_Leave);
             // 
             // textUsername
             // 
@@ -115,8 +116,8 @@
             this.textUsername.Size = new System.Drawing.Size(415, 30);
             this.textUsername.TabIndex = 203;
             this.textUsername.Text = "Preferred username";
-            this.textUsername.Enter += new System.EventHandler(this.textUsername_Enter);
-            this.textUsername.Leave += new System.EventHandler(this.textUsername_Leave);
+            this.textUsername.Enter += new System.EventHandler(this.TextUsername_Enter);
+            this.textUsername.Leave += new System.EventHandler(this.TextUsername_Leave);
             // 
             // textPassword
             // 
@@ -128,8 +129,8 @@
             this.textPassword.Size = new System.Drawing.Size(415, 30);
             this.textPassword.TabIndex = 204;
             this.textPassword.Text = "Password";
-            this.textPassword.Enter += new System.EventHandler(this.textPassword_Enter);
-            this.textPassword.Leave += new System.EventHandler(this.textPassword_Leave);
+            this.textPassword.Enter += new System.EventHandler(this.TextPassword_Enter);
+            this.textPassword.Leave += new System.EventHandler(this.TextPassword_Leave);
             // 
             // buttonRegister
             // 
@@ -138,12 +139,13 @@
             this.buttonRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRegister.Font = new System.Drawing.Font("Arial Rounded MT Bold", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRegister.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.buttonRegister.Location = new System.Drawing.Point(196, 333);
+            this.buttonRegister.Location = new System.Drawing.Point(175, 320);
             this.buttonRegister.Name = "buttonRegister";
-            this.buttonRegister.Size = new System.Drawing.Size(210, 44);
+            this.buttonRegister.Size = new System.Drawing.Size(245, 44);
             this.buttonRegister.TabIndex = 206;
             this.buttonRegister.Text = "Register";
             this.buttonRegister.UseVisualStyleBackColor = false;
+            this.buttonRegister.Click += new System.EventHandler(this.ButtonRegister_Click);
             // 
             // textEmail
             // 
@@ -155,8 +157,8 @@
             this.textEmail.Size = new System.Drawing.Size(416, 30);
             this.textEmail.TabIndex = 202;
             this.textEmail.Text = "example@companyemail.com";
-            this.textEmail.Enter += new System.EventHandler(this.textEmail_Enter);
-            this.textEmail.Leave += new System.EventHandler(this.textEmail_Leave);
+            this.textEmail.Enter += new System.EventHandler(this.TextEmail_Enter);
+            this.textEmail.Leave += new System.EventHandler(this.TextEmail_Leave);
             // 
             // label5
             // 
@@ -180,8 +182,8 @@
             this.textPasswordConfirm.Size = new System.Drawing.Size(415, 30);
             this.textPasswordConfirm.TabIndex = 205;
             this.textPasswordConfirm.Text = "Confirm Password";
-            this.textPasswordConfirm.Enter += new System.EventHandler(this.textPasswordConfirm_Enter);
-            this.textPasswordConfirm.Leave += new System.EventHandler(this.textPasswordConfirm_Leave);
+            this.textPasswordConfirm.Enter += new System.EventHandler(this.TextPasswordConfirm_Enter);
+            this.textPasswordConfirm.Leave += new System.EventHandler(this.TextPasswordConfirm_Leave);
             // 
             // textLastName
             // 
@@ -194,22 +196,37 @@
             this.textLastName.TabIndex = 201;
             this.textLastName.Text = "Surname";
             this.textLastName.Enter += new System.EventHandler(this.TextLastName_Enter);
-            this.textLastName.Leave += new System.EventHandler(this.textLastName_Leave);
+            this.textLastName.Leave += new System.EventHandler(this.TextLastName_Leave);
             // 
-            // label6
+            // buttonClose
             // 
-            this.label6.AutoSize = true;
-            this.label6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label6.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(173)))), ((int)(((byte)(46)))));
-            this.label6.Location = new System.Drawing.Point(559, 9);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(31, 32);
-            this.label6.TabIndex = 208;
-            this.label6.Text = "X";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
-            this.label6.MouseLeave += new System.EventHandler(this.label6_MouseLeave);
-            this.label6.MouseHover += new System.EventHandler(this.label6_MouseHover);
+            this.buttonClose.AutoSize = true;
+            this.buttonClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonClose.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(173)))), ((int)(((byte)(46)))));
+            this.buttonClose.Location = new System.Drawing.Point(559, 9);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(31, 32);
+            this.buttonClose.TabIndex = 208;
+            this.buttonClose.Text = "X";
+            this.buttonClose.Click += new System.EventHandler(this.ButtonClose_Click);
+            this.buttonClose.MouseLeave += new System.EventHandler(this.ButtonClose_MouseLeave);
+            this.buttonClose.MouseHover += new System.EventHandler(this.ButtonClose_MouseHover);
+            // 
+            // buttonBack
+            // 
+            this.buttonBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.buttonBack.FlatAppearance.BorderSize = 0;
+            this.buttonBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonBack.Font = new System.Drawing.Font("Arial Rounded MT Bold", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBack.ForeColor = System.Drawing.Color.White;
+            this.buttonBack.Location = new System.Drawing.Point(426, 320);
+            this.buttonBack.Name = "buttonBack";
+            this.buttonBack.Size = new System.Drawing.Size(163, 44);
+            this.buttonBack.TabIndex = 209;
+            this.buttonBack.Text = "Back";
+            this.buttonBack.UseVisualStyleBackColor = false;
+            this.buttonBack.Click += new System.EventHandler(this.ButtonBack_Click);
             // 
             // RegisterForm
             // 
@@ -218,7 +235,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(602, 389);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.buttonBack);
+            this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.textLastName);
             this.Controls.Add(this.textPasswordConfirm);
             this.Controls.Add(this.textEmail);
@@ -248,7 +266,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textForename;
-        private System.Windows.Forms.TextBox textSurname;
         private System.Windows.Forms.TextBox textUsername;
         private System.Windows.Forms.TextBox textPassword;
         private System.Windows.Forms.Button buttonRegister;
@@ -256,6 +273,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textPasswordConfirm;
         private System.Windows.Forms.TextBox textLastName;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label buttonClose;
+        private System.Windows.Forms.Button buttonBack;
     }
 }

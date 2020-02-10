@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LoginRegistrer
@@ -17,7 +13,7 @@ namespace LoginRegistrer
             InitializeComponent();
         }
 
-        private void textUsername_TextChanged(object sender, EventArgs e)
+        private void TextUsername_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -37,7 +33,7 @@ namespace LoginRegistrer
             }
         }
 
-        private void textForename_Leave(object sender, EventArgs e)
+        private void TextForename_Leave(object sender, EventArgs e)
         {
             String firstName = textForename.Text;
             if (firstName.ToLower().Trim().Equals(""))
@@ -47,7 +43,7 @@ namespace LoginRegistrer
             }
         }
 
-        private void textForename_TextChanged(object sender, EventArgs e)
+        private void TextForename_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -62,7 +58,7 @@ namespace LoginRegistrer
             }
         }
 
-        private void textLastName_Leave(object sender, EventArgs e)
+        private void TextLastName_Leave(object sender, EventArgs e)
         {
             string lastName = textLastName.Text;
             if (lastName.ToLower().Trim().Equals(""))
@@ -73,7 +69,7 @@ namespace LoginRegistrer
             }
         }
 
-        private void textEmail_Enter(object sender, EventArgs e)
+        private void TextEmail_Enter(object sender, EventArgs e)
         {
             string email = textEmail.Text;
             if (email.Equals("example@companyemail.com"))
@@ -83,7 +79,7 @@ namespace LoginRegistrer
             }
         }
 
-        private void textEmail_Leave(object sender, EventArgs e)
+        private void TextEmail_Leave(object sender, EventArgs e)
         {
             string email = textEmail.Text;
             if (email.ToLower().Trim().Equals(""))
@@ -93,7 +89,7 @@ namespace LoginRegistrer
             }
         }
 
-        private void textUsername_Enter(object sender, EventArgs e)
+        private void TextUsername_Enter(object sender, EventArgs e)
         {
             string username = textUsername.Text;
             if (username.Equals("Preferred username"))
@@ -103,7 +99,7 @@ namespace LoginRegistrer
             }
         }
 
-        private void textUsername_Leave(object sender, EventArgs e)
+        private void TextUsername_Leave(object sender, EventArgs e)
         {
             string username = textUsername.Text;
             if (username.ToLower().Trim().Equals(""))
@@ -113,7 +109,7 @@ namespace LoginRegistrer
             }
         }
 
-        private void textPassword_Enter(object sender, EventArgs e)
+        private void TextPassword_Enter(object sender, EventArgs e)
         {
             string password = textPassword.Text;
             if (password.Equals("Password"))
@@ -124,7 +120,7 @@ namespace LoginRegistrer
             }
         }
 
-        private void textPassword_Leave(object sender, EventArgs e)
+        private void TextPassword_Leave(object sender, EventArgs e)
         {
             string password = textPassword.Text;
             if (password.ToLower().Trim().Equals(""))
@@ -135,7 +131,7 @@ namespace LoginRegistrer
             }
         }
 
-        private void textPasswordConfirm_Enter(object sender, EventArgs e)
+        private void TextPasswordConfirm_Enter(object sender, EventArgs e)
         {
             string passwordConfirm = textPasswordConfirm.Text;
             if (passwordConfirm.Equals("Confirm Password"))
@@ -146,7 +142,7 @@ namespace LoginRegistrer
             }
         }
 
-        private void textPasswordConfirm_Leave(object sender, EventArgs e)
+        private void TextPasswordConfirm_Leave(object sender, EventArgs e)
         {
             string passwordConfirm = textPasswordConfirm.Text;
             if (passwordConfirm.ToLower().Trim().Equals(""))
@@ -157,24 +153,125 @@ namespace LoginRegistrer
             }
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void ButtonClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
-        private void label6_Click(object sender, EventArgs e)
+        private void ButtonClose_MouseHover(object sender, EventArgs e)
         {
-            this.Close();
+            buttonClose.ForeColor = Color.Red;
         }
 
-        private void label6_MouseHover(object sender, EventArgs e)
+        private void ButtonClose_MouseLeave(object sender, EventArgs e)
         {
-            label6.ForeColor = Color.Red;
+            buttonClose.ForeColor = Color.Orange;
         }
 
-        private void label6_MouseLeave(object sender, EventArgs e)
+        private void ButtonRegister_Click(object sender, EventArgs e)
         {
-            label6.ForeColor = Color.Orange;
+            DB db = new DB();
+            MySqlCommand command = new MySqlCommand("INSERT INTO `users`(`forename`, `surname`, `email`, `username`, `password`) VALUES (@fn, @ln, @email, @usn, @pass)", db.GetConnection());
+
+            command.Parameters.Add("@fn", MySqlDbType.VarChar).Value = textForename.Text;
+            command.Parameters.Add("@ln", MySqlDbType.VarChar).Value = textLastName.Text;
+            command.Parameters.Add("@email", MySqlDbType.VarChar).Value = textEmail.Text;
+            command.Parameters.Add("@usn", MySqlDbType.VarChar).Value = textUsername.Text;
+            command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = textPassword.Text;
+
+            db.OpenConnection();
+
+            //Textbox change function
+            if (!CheckTextBoxes())
+            {
+                if (textPasswordConfirm.Text == textPassword.Text)
+                {
+                    //Username function
+                    if (CheckUsername())
+                    {
+                        MessageBox.Show("This Username already exists, choose a different one.");
+                    }
+                    else
+                    {
+                        if (command.ExecuteNonQuery() == 1)
+                        {
+                            MessageBox.Show("Welcome, Account has been created");
+                            Application.Exit();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error, please try again later");
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Password does not match.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please make sure all boxes are filled.");
+
+            }
+
+            db.CloseConnection();
+        }
+        //Checks to see if Username has been taken
+        public Boolean CheckUsername()
+        {
+
+            DB db = new DB();
+
+            string username = textUsername.Text;
+
+            DataTable table = new DataTable();
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `username`= @usn", db.GetConnection());
+
+            command.Parameters.Add("@usn", MySqlDbType.VarChar).Value = username;
+
+            adapter.SelectCommand = command;
+
+            adapter.Fill(table);
+
+            if (table.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //Checks if textboxes are changed
+        public Boolean CheckTextBoxes()
+        {
+            string fname = textForename.Text;
+            string lname = textLastName.Text;
+            string email = textEmail.Text;
+            string user = textUsername.Text;
+            string pass = textPassword.Text;
+            string passConfirm = textPasswordConfirm.Text;
+
+            if (fname.Equals("Forename") || lname.Equals("Surname") || email.Equals("example@companyemail.com") || user.Equals("Preferred username") || pass.Equals("Password") || passConfirm.Equals("Confirm Password"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void ButtonBack_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
         }
     }
 }
