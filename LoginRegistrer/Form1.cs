@@ -48,7 +48,7 @@ namespace LoginRegistrer
 
             adapter.Fill(table);
 
-            if(table.Rows.Count > 1)
+            if(table.Rows.Count > 0)
             {
                 MessageBox.Show("YES");
             }
@@ -57,6 +57,31 @@ namespace LoginRegistrer
                 MessageBox.Show("User not found!");
             }
 
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textUsername_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void label4_MouseHover(object sender, EventArgs e)
+        {
+            label4.ForeColor = Color.Red;
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void label4_MouseLeave(object sender, EventArgs e)
+        {
+            label4.ForeColor = Color.Orange;
         }
     }
 }
