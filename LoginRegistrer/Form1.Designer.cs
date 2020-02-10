@@ -1,6 +1,6 @@
 ﻿namespace LoginRegistrer
 {
-    partial class Form1
+    partial class LoginForm
     {
         /// <summary>
         /// Required designer variable.
@@ -41,7 +41,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::LoginRegistrer.Properties.Resources.Login;
-            this.pictureBox1.Location = new System.Drawing.Point(159, 60);
+            this.pictureBox1.Location = new System.Drawing.Point(159, 64);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(284, 136);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -100,7 +100,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Broadway", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(173)))), ((int)(((byte)(46)))));
-            this.label3.Location = new System.Drawing.Point(78, 3);
+            this.label3.Location = new System.Drawing.Point(78, 7);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(446, 55);
             this.label3.TabIndex = 6;
@@ -121,9 +121,9 @@
             this.buttonLogin.TabIndex = 7;
             this.buttonLogin.Text = "Login";
             this.buttonLogin.UseVisualStyleBackColor = false;
-            this.buttonLogin.Click += new System.EventHandler(this.button1_Click);
+            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
-            // Form1
+            // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -137,7 +137,7 @@
             this.Controls.Add(this.textUsername);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Name = "Form1";
+            this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "User Login";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
